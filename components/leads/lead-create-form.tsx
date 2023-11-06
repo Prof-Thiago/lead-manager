@@ -204,7 +204,7 @@ export default function LeadForm(props: any) {
                                     checked={checkAll}
                                     disabled={!!lead.id}
                                     onChange={handleOpportunityChange}
-                                    className={`${!!lead.id ? "bg-gray-400" : ""} h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600`} 
+                                    className={`${!!lead.id ? "bg-gray-400 text-gray-400" : "text-indigo-600"} h-4 w-4 rounded border-gray-300 focus:ring-indigo-600`} 
                                     />
                             </div>
                             <div className="text-sm leading-6">
