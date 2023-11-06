@@ -5,14 +5,14 @@ import { Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function LeadList(props: any) {
     const { setModal, listStatus, children } = props;
-    const { userLeads, getUserLeads, setUserLeads } = useUser();
+    const { userLeads, getUserLeads } = useUser();
 
     useEffect(() => {
         getUserLeads();
     }, [])
 
     return (
-        <div className="border-solid border-gray-200 border-2 w-1/3">
+        <div className="border-solid border-gray-200 border-2 w-1/3 m-0 p-0">
             <div className="text-center flex flex-col justify-center bg-black text-center h-20">
                 <h3 className="text-white text-base">
                     { children }
@@ -20,78 +20,50 @@ export default function LeadList(props: any) {
             </div>
 
  
-            <ul 
-                role="list" 
-                className="max-h-md"
-                >
-                    <Droppable 
-                        droppableId={listStatus} 
-                        key={listStatus}
-                        direction="vertical">
-                        {(provided) =>
-                            <li
-                                {...provided.droppableProps} 
-                                ref={provided.innerRef}
-                                >
-                                {userLeads && userLeads.map((lead, index) =>  {
-                                    if (lead.id) {
+
+            <Droppable 
+                droppableId={listStatus} 
+                key={listStatus}
+                direction="vertical">
+                {(provided) =>
+                    <ul 
+                        role="list" 
+                        className="max-h-md divide-gray-100 divide-y-2"
+                        {...provided.droppableProps} 
+                        ref={provided.innerRef}
+                        >
+                    {userLeads && userLeads.map((lead, index) =>  (
+                        <li key={index}>
+                                <Draggable 
+                                    key={lead.id + listStatus} 
+                                    draggableId={lead.id + listStatus} 
+                                    index={index}
+                                    >
+                                    {(prov) => {
                                         return (
-                                            <Draggable 
-                                                key={lead.id + listStatus} 
-                                                draggableId={lead.id + listStatus} 
-                                                index={index}
+                                            <div 
+                                                ref={prov.innerRef} 
+                                                {...prov.draggableProps} 
+                                                {...prov.dragHandleProps}
+                                                className="p-2" 
                                                 >
-                                                {(prov) => {
-                                                    return (
-                                                        <div 
-                                                            ref={prov.innerRef} 
-                                                            {...prov.draggableProps} 
-                                                            {...prov.dragHandleProps}
-                                                            className="p-2" 
-                                                            >
 
-                                                            <LeadItem 
-                                                                lead={lead} 
-                                                                setModal={setModal}
-                                                                showStatus={listStatus}
-                                                                />
-                                                                                                        
-                                                        </div>                                        
-                                                )}}
-                                            </Draggable>
-                                        )                                
-                                    }
-                                    return (
-                                        <Draggable 
-                                            key={index + listStatus} 
-                                            draggableId={index + listStatus} 
-                                            index={index}
-                                            >
-                                            {(prov) => {
-                                                return (
-                                                    <div 
-                                                        ref={prov.innerRef} 
-                                                        {...prov.draggableProps} 
-                                                        {...prov.dragHandleProps}
-                                                        className="p-2" 
-                                                        >
-
-                                                        <LeadItem 
-                                                            lead={lead} 
-                                                            setModal={setModal}
-                                                            showStatus={listStatus}
-                                                            />
-                                                                                                    
-                                                    </div>                                        
-                                                )}}
-                                        </Draggable>  
-                                    )
-                                })}
-                            {provided.placeholder}                                
-                        </li>
-                    }
-                </Droppable>                        
-            </ul>                      
+                                                <LeadItem 
+                                                    lead={lead} 
+                                                    setModal={setModal}
+                                                    showStatus={listStatus}
+                                                    />
+                                                                                            
+                                            </div>                                        
+                                    )}}
+                                </Draggable>
+                            </li>
+                            )                                
+                        )}
+                        {provided.placeholder}
+                    </ul>  
+                }
+            </Droppable>                                              
         </div>
     )
 }
