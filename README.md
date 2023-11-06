@@ -4,7 +4,7 @@
 
 </div>
 
-This app was created with the intention of allowing the management of leads for business and people. It allows the creation of accounts and the creation of leads, with options to visualize theirs details and change theirs status.
+This app was created with the intention of allowing the management of leads for businesses and people. It allows the creation of accounts and the creation of leads, with options to visualize theirs details and change theirs status.
 
 <div align ="center">
 
