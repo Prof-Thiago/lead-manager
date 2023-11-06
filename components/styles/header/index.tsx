@@ -8,16 +8,17 @@ export default function MainHeader(props: any) {
     const { user, handleLogout } = useUser();
     const route = useRouter();
 
-    const [isAuthenticated, setIsAuthenticated] = useState(!!user.id || false)
+    const [winReady, setwinReady] = useState(false);
 
     const logout = () => {
         handleLogout();
         route.push('/')
     }
 
-    useEffect(() => {
-        setIsAuthenticated(!!user.id || false)
-    })
+
+    useEffect( () => {
+        setwinReady(true);
+    }, [])
 
     return (
         <header className="bg-white w-full h-24 absolute">
@@ -28,9 +29,13 @@ export default function MainHeader(props: any) {
                 </div>
                 
                 <div className="lg:flex lg:flex-1 lg:justify-end">
-                    <p className="text-sm font-semibold leading-6 text-gray-900" onClick={logout}>
-                        { isAuthenticated ? 'Log out' : 'Sign Up' }
-                    </p>
+                    {winReady 
+                        ?   <a href="/" className="text-sm font-semibold leading-6 text-gray-900" onClick={logout}>
+                                { !!user.id ? 'Log out' : 'Sign Up' }
+                            </a>
+                        :   <a></a>
+                    }
+
                 </div>
 
             </nav>
