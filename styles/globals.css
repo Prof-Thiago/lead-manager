@@ -16,12 +16,12 @@
   }
 }
 
-body {
+html, body {
+  @apply h-full;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,55,121,1) 49%, rgba(0,212,255,1) 100%);
+}
+
+#__next {
+  @apply flex flex-col h-screen text-gray-600 leading-normal text-base tracking-normal;
 }
