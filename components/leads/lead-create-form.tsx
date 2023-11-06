@@ -148,7 +148,7 @@ export default function LeadForm(props: any) {
                         disabled={!!lead.id}
                         onChange={handleChange}
                         required 
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+                        className={`${!!lead.id ? "bg-gray-400" : ""} block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                         />
                     {errors.name && touched.name && <span className="text-sm font-small text-red-300">{errors.name}</span>}
                 </div>
@@ -165,7 +165,7 @@ export default function LeadForm(props: any) {
                         disabled={!!lead.id}
                         onChange={handleChange}
                         required 
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+                        className={`${!!lead.id ? "bg-gray-400" : ""} block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`} 
                         />
                     {errors.email && touched.email && <span className="text-sm font-small text-red-300">{errors.email}</span>}
                 </div>
@@ -185,7 +185,7 @@ export default function LeadForm(props: any) {
                         disabled={!!lead.id}
                         onChange={handleChange} 
                         required 
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" 
+                        className={`${!!lead.id ? "bg-gray-400" : ""} block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6`}
                         />
                     {errors.phone && touched.phone && <span className="text-sm font-small text-red-300">{errors.phone}</span>}
                 </div>
@@ -204,7 +204,7 @@ export default function LeadForm(props: any) {
                                     checked={checkAll}
                                     disabled={!!lead.id}
                                     onChange={handleOpportunityChange}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" 
+                                    className={`${!!lead.id ? "bg-gray-400" : ""} h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600`} 
                                     />
                             </div>
                             <div className="text-sm leading-6">
@@ -222,7 +222,7 @@ export default function LeadForm(props: any) {
                                         checked={opportunity.status} 
                                         disabled={!!lead.id} 
                                         type="checkbox" 
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" />
+                                        className={`${!!lead.id ? "bg-gray-400 text-gray-400" : "text-indigo-600"} h-4 w-4 rounded border-gray-300 focus:ring-indigo-600`} />
                                 </div>
                                 <div className="text-sm leading-6">
                                     <label htmlFor={opportunity.name} className="font-medium text-gray-900">{opportunity.name}</label>
