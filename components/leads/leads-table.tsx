@@ -1,13 +1,12 @@
 import { DragDropContext, resetServerContext } from "react-beautiful-dnd";
 import LeadList from "./leads-list";
-import { useUser } from "@/providers/userProvider";
-import { saveInLocalStorage } from "@/utils/localStorage";
-import { Lead, LeadStatus } from "@/utils/interfaces";
+import { LeadStatus } from "@/utils/interfaces";
 import { GetServerSideProps } from "next";
+import { useLead } from "@/providers/leadProvider";
 
 export default function LeadTable(props: any) {
     const { setModal } = props;
-    const { userLeads, setUserLeads, setUser, user } = useUser();
+    const { leads, updateLead } = useLead();
 
     const ListStatus = [
         { status: 'potential-client', label: 'Cliente em Potencial'}, 
@@ -28,28 +27,19 @@ export default function LeadTable(props: any) {
         const destinationId: LeadStatus = destination.droppableId
 
         if(destinationId === draggableAllowed[sourceId]) {
-            const updatedLeads: Lead[] = userLeads.map(lead => {
-                if ( lead.id + sourceId === draggableId ) {
-                    const status: "potential-client" | "confirmed-data" | "lead-review" = destinationId;
-                    return { ...lead, status }
-                }
+            const lead = leads.find(lead => lead.id + sourceId === draggableId)
+            if (lead) {
+                const status: "potential-client" | "confirmed-data" | "lead-review" = destinationId;
+                const updatedLead = { ...lead, status }
 
-                return lead
-            })
-
-            const updatedUser = { ...user, updatedLeads }
-            
-            setUser(updatedUser);
-            saveInLocalStorage('@LeadManager:User', updatedUser);
-            setUserLeads(updatedLeads);
+                updateLead(updatedLead);                
+            }
         }
-
-        return
     }
     
     return (
         <DragDropContext onDragEnd={handleOnDragEnd}>
-            <div className="flex">
+            <div className="flex justify-between">
                 { ListStatus.map(listStatus => (
                     <LeadList listStatus={listStatus.status} key={listStatus.status} setModal={setModal} > { listStatus.label } </LeadList>
                 ))}       
