@@ -3,11 +3,12 @@ import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useUser } from "@/providers/userProvider";
 import { v4 as uuid } from "uuid";
-import { saveInLocalStorage } from "@/utils/localStorage";
+import { useState } from "react";
 
 export default function SignUpForm() {
     const route = useRouter();
-    const { setUser } = useUser();
+    const { createUser } = useUser();
+    const [ signUpError, setSignUpError ] = useState<boolean>(false);
 
     const PasswordStrength = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/;
     const NameValidation = /^[a-z][a-z\s]*$/i;
@@ -19,7 +20,7 @@ export default function SignUpForm() {
           .string()
           .min(8, "Mínimo de 8 dígitos")
           .required("Campo obrigatório")
-          .matches(PasswordStrength, "Letras maiúsculas, minúsculas, números e letras."),
+          .matches(PasswordStrength, "Letras maiúsculas, minúsculas, números e símbolos."),
         confirmPassword: yup
           .string()
           .required("Campo obrigatório")
@@ -38,10 +39,12 @@ export default function SignUpForm() {
             const userId = uuid()
             const user = { id: userId, name, email, password, leads: [] };
 
-            setUser(user);
-            saveInLocalStorage("user", user);
-            
-            route.push('/leads');
+            const result = createUser(user);
+            if (result === 'Success') {
+                route.push('/leads');
+            } else {
+                setSignUpError(true);
+            }          
         },
     });
     
@@ -121,6 +124,8 @@ export default function SignUpForm() {
             <div>
                 <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign up</button>
             </div>
+
+            {signUpError && <span className="text-sm font-small text-red-300">Este usuário já existe!</span>}
         </form>
     </div>
     )
