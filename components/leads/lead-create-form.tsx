@@ -9,8 +9,8 @@ import { v4 as uuid } from "uuid";
 import { saveInLocalStorage } from "@/utils/localStorage";
 
 export default function LeadForm(props: any) {
-    const { setUser, user, userLeads, setUserLeads } = useUser();
-    const { lead, setLead } = useLead();
+    const { user  } = useUser();
+    const { lead, setLead, saveNewLead } = useLead();
     const { setModal } = props;
 
     const [ checkAll, setCheckAll ] = useState<boolean>( true );
@@ -50,6 +50,7 @@ export default function LeadForm(props: any) {
             if (!!lead.id) {
                 const emptyLead = {
                     id: "",
+                    userId: "",
                     status: "potential-client" as LeadStatus,
                     name: "",
                     email: "",
@@ -58,19 +59,13 @@ export default function LeadForm(props: any) {
                 }
 
                 setLead(emptyLead)
-                saveInLocalStorage("@LeadManager:Lead", emptyLead)
+                localStorage.removeItem("@LeadManager:Lead");
             } else {
-                const leads = userLeads;
                 const status = "potential-client";
                 const leadId = uuid();
-                const newLead: Lead = { id: leadId, status, name, email, phone, opportunities };
+                const newLead: Lead = { id: leadId, userId: user.id, status, name, email, phone, opportunities };
 
-                leads.push(newLead);
-
-                const updatedUser = { ...user, leads }
-
-                setUser(updatedUser);
-                saveInLocalStorage("@LeadManager:User", updatedUser);
+                saveNewLead(newLead)
             }
 
             setModal();
