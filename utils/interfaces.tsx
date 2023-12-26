@@ -7,6 +7,7 @@ export type LeadStatus = "potential-client" | "confirmed-data" | "lead-review";
   
 export interface Lead {
     id: string;
+    userId: string;
     status: LeadStatus;
     name: string;
     email: string;
@@ -19,5 +20,4 @@ export interface User {
     name: string;
     email: string;
     password: string;
-    leads: Lead[];
 }
