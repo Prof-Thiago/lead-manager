@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { getFromLocalStorage, saveInLocalStorage } from "../../utils/localStorage";
 import { Lead } from "../../utils/interfaces";
 import { opportunitiesBase } from "../../utils/constants";

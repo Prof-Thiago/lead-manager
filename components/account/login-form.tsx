@@ -2,8 +2,6 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useUser } from "@/providers/userProvider";
-import { v4 as uuid } from "uuid";
-import { saveInLocalStorage } from "@/utils/localStorage";
 import { useState } from "react";
 
 export default function SignUpForm() {
