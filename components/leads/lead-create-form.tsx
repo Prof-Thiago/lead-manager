@@ -48,7 +48,7 @@ export default function LeadForm(props: any) {
         validationSchema: schema,
         onSubmit: async ({ name, email, phone }) => {
             if (!!lead.id) {
-                const emptyLead = {
+                const emptyLead: Lead = {
                     id: "",
                     userId: "",
                     status: "potential-client" as LeadStatus,
@@ -61,11 +61,13 @@ export default function LeadForm(props: any) {
                 setLead(emptyLead)
                 localStorage.removeItem("@LeadManager:Lead");
             } else {
-                const status = "potential-client";
-                const leadId = uuid();
-                const newLead: Lead = { id: leadId, userId: user.id, status, name, email, phone, opportunities };
+                if (user.id) {
+                    const status = "potential-client";
+                    const leadId = uuid();
+                    const newLead: Lead = { id: leadId, userId: user.id, status, name, email, phone, opportunities };
 
-                saveNewLead(newLead)
+                    saveNewLead(newLead)                    
+                }
             }
 
             setModal();
