@@ -8,6 +8,18 @@ This app was created with the intention of allowing the management of leads for 
 
 <div align ="center">
 
+## Vercel Access 
+
+</div>
+
+The web app can be accessed in Vercel at the following domain URL:
+
+```bash
+https://lead-manager-blond.vercel.app
+```
+
+<div align ="center">
+
 ## Running Application
 
 </div>
