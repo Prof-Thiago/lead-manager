@@ -109,8 +109,9 @@ export default function LeadForm(props: any) {
 
     const handleCancel =() => {
         if (lead.id) {
-            const emptyLead = {
+            const emptyLead: Lead = {
                 id: "",
+                userId: "",
                 status: "potential-client" as LeadStatus,
                 name: "",
                 email: "",
@@ -119,7 +120,7 @@ export default function LeadForm(props: any) {
             }
 
             setLead(emptyLead)
-            saveInLocalStorage("@LeadManager:Lead", emptyLead) 
+            localStorage.removeItem("@LeadManager:Lead");
         }
 
         setModal();
